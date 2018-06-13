@@ -1,16 +1,21 @@
 package com.github.wenerme.postjava.querydsl;
 
+import com.github.wenerme.wava.util.JSON;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.querydsl.core.types.Path;
 import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.PathMetadataFactory;
 import com.querydsl.core.types.Visitor;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberTemplate;
 import com.querydsl.core.types.dsl.StringExpression;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 import javax.annotation.Nullable;
+import lombok.Getter;
+import org.hibernate.annotations.Type;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
@@ -21,27 +26,44 @@ public class JsonPath implements Path<Object> {
   protected final PathMetadata metadata;
   protected final String property;
   protected final Path<?> parent;
+  @Getter protected final boolean jsonb;
 
   protected JsonPath(Path<?> parent) {
     this(parent, ".");
   }
 
   protected JsonPath(Path<?> parent, String property) {
+    this(parent, property, isJsonb(parent));
+  }
+
+  protected JsonPath(Path<?> parent, String property, boolean jsonb) {
     metadata = PathMetadataFactory.forProperty(parent, property);
     this.property = property;
     this.parent = parent;
+    this.jsonb = jsonb;
   }
 
-  public static JsonPath of(Path<?> path, String... properties) {
-    JsonPath p = new JsonPath(path);
-    for (String property : properties) {
-      p = of(p, property);
+  public static boolean isJsonb(Path<?> path) {
+    if (path instanceof JsonPath) {
+      return ((JsonPath) path).isJsonb();
     }
-    return p;
+    Type type = path.getAnnotatedElement().getAnnotation(Type.class);
+    if (type != null) {
+      return type.type().contains("jsonb");
+    }
+    return false;
   }
 
-  public static JsonPath of(Path<?> path, String property) {
-    return new JsonPath(path, property);
+  public static JsonPath of(Path<?> path) {
+    return new JsonPath(path, ".", isJsonb(path));
+  }
+
+  public static JsonPath ofJson(Path<?> path) {
+    return new JsonPath(path, ".", false);
+  }
+
+  public static JsonPath ofJsonb(Path<?> path) {
+    return new JsonPath(path, ".", true);
   }
 
   @Override
@@ -56,7 +78,7 @@ public class JsonPath implements Path<Object> {
 
   @Override
   public AnnotatedElement getAnnotatedElement() {
-    return null;
+    return parent.getAnnotatedElement();
   }
 
   @Nullable
@@ -79,10 +101,6 @@ public class JsonPath implements Path<Object> {
       p.add(property);
     }
     return p;
-  }
-
-  protected boolean isJsonb() {
-    return false;
   }
 
   @Override
@@ -119,6 +137,14 @@ public class JsonPath implements Path<Object> {
 
   public JsonPath get(String property) {
     return new JsonPath(this, property);
+  }
+
+  public JsonPath get(String... properties) {
+    JsonPath p = this;
+    for (String s : properties) {
+      p = p.get(s);
+    }
+    return p;
   }
 
   protected CharSequence generateArgs(StringBuilder sb, int n) {
@@ -161,5 +187,21 @@ public class JsonPath implements Path<Object> {
 
   protected StringBuilder functionNameOf(StringBuilder sb, String n) {
     return sb.append(functionNamePrefix()).append(n);
+  }
+
+  /** JSONB {@code @>} syntax */
+  public BooleanExpression contain(Object value) {
+    checkJsonb();
+    List<Object> args = properties();
+    args.add(JSON.stringify(value));
+    StringBuilder sb = new StringBuilder();
+    functionNameOf(sb, "contain").append('(');
+    generateArgs(sb, args.size());
+    sb.append(')');
+    return Expressions.booleanTemplate(sb.toString(), args);
+  }
+
+  protected void checkJsonb() {
+    Preconditions.checkArgument(isJsonb(), "This function required jsonb type");
   }
 }
