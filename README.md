@@ -1,4 +1,5 @@
-# postjava
+# PostJava
+
 Java work with PostgreSQL
 
 * Single class to rule both json and jsonb
@@ -6,7 +7,7 @@ Java work with PostgreSQL
 * json/jsonb operator for QueryDSL
 * json/jsonb function integration for QueryDSL
 
-## How to use
+## Get started
 
 ### Install dialect
 
@@ -36,7 +37,7 @@ public class PostgreSQLCustomDialect extends PostgreSQLDialect {
 }
 ```
 
-### Define you entity
+### Define entity
 * [vladmihalcea/hibernate-types](https://github.com/vladmihalcea/hibernate-types) provide json type support for hibernate
 
 ```xml
@@ -78,8 +79,8 @@ class PlayJson{
     attrs.get("age").asInt().gt(18); // Integer expression
     attrs.get("score").asFloat().gt(1.5); // Float expression
     attrs.get("resources").contain(1).isTrue(); // Is array contain element 
-    attrs.get("resources").contain("A").isTrue().not(); // Is array contain not element 
-    attrs.get("resources").contain("A").isFalse(); // Is array contain not element
+    attrs.get("resources").contain("A").isTrue().not(); // Is array not contain element 
+    attrs.get("resources").contain("A").isFalse(); // Is array not contain element
     attrs.get("resources").length().gt(0); // Is array length > 0
   }
 }
