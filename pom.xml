@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>wava-parent</artifactId>
         <groupId>com.github.wenerme.wava</groupId>
         <version>0.0.5</version>
-        <relativePath/>
+        <relativePath />
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.wenerme.postjava</groupId>
     <artifactId>postjava</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 
 
     <dependencies>
@@ -71,6 +69,6 @@
         <connection>scm:git:https://github.com/wenerme/postjava.git</connection>
         <developerConnection>scm:git:https://github.com/wenerme/postjava.git</developerConnection>
         <url>http://github.com/wenerme/postjava</url>
-        <tag>HEAD</tag>
+        <tag>v1.0.0</tag>
     </scm>
 </project>
