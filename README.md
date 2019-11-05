@@ -1,4 +1,5 @@
 # PostJava
+This repository is an extension of https://github.com/wenerme/postjava.
 
 Java work with PostgreSQL
 
@@ -91,6 +92,3 @@ class PlayJson{
  
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
 warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the MIT Public License for more details.
-
-# Authors
-This repository is an extension of https://github.com/wenerme/postjava.
