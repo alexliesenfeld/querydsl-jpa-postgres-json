@@ -1,5 +1,5 @@
-# PostJava
-This repository is an extension of https://github.com/wenerme/postjava.
+# querydsl-jpa-postgres-json
+This repository contains a Querydsl extension for working with JSON types when using JPA, Hibernate and PostgreSQL. It is based on https://github.com/wenerme/postjava but extends it to support more data types.
 
 Java work with PostgreSQL
 
@@ -14,15 +14,15 @@ Java work with PostgreSQL
 
 ```xml
 <dependency>
-    <groupId>com.github.alexliesenfeld.postjava</groupId>
-    <artifactId>postjava</artifactId>
-    <version>1.0.1</version>
+    <groupId>com.github.alexliesenfeld</groupId>
+    <artifactId>querydsl-jpa-postgres-json</artifactId>
+    <version>0.0.1</version>
 </dependency>
 ```
 
 ```yaml
 # Use the predefined dialect
-spring.jpa.properties.hibernate.dialect: PostgreSQLJsonDialect
+spring.jpa.properties.hibernate.dialect: com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.PostgreSQLJsonDialect
 ```
 
 Or use your customized dialect
