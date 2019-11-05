@@ -1,5 +1,5 @@
-# Querydsl JPA extension for PostgreSQL JSON types 
-This repository is an extension of https://github.com/wenerme/postjava.
+# querydsl-jpa-postgres-json
+This repository contains a Querydsl extension for working with JSON types when using JPA, Hibernate and PostgreSQL. This repository is based on https://github.com/wenerme/postjava but extends it to support more data types and PostgreSQL functions.
 
 Java work with PostgreSQL
 
