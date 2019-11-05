@@ -14,7 +14,7 @@
 
     <groupId>com.github.alexliesenfeld</groupId>
     <artifactId>querydsl-jpa-postgres-json</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -183,7 +183,7 @@
         <developerConnection>scm:git:https://github.com/alexliesenfeld/querydsl-jpa-postgres-json.git
         </developerConnection>
         <url>http://github.com/alexliesenfeld/querydsl-jpa-postgres-json</url>
-        <tag>v0.0.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>
