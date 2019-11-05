@@ -134,6 +134,15 @@ public class JsonPath implements Path<Object> {
     sb.append(")");
     return Expressions.numberTemplate(Float.class, sb.toString(), args);
   }
+  
+  public NumberTemplate<Integer> aBool() {
+    List<Object> args = properties();
+    StringBuilder sb = new StringBuilder();
+    sb.append("hql_json_bool(");
+    generateArgs(sb, args.size());
+    sb.append(")");
+    return Expressions.numberTemplate(Integer.class, sb.toString(), args);
+  }
 
   public JsonPath get(String property) {
     return new JsonPath(this, property);

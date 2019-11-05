@@ -3,10 +3,7 @@ package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate
 import java.sql.Types;
 
 import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.*;
-import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types.JsonContainsSQLFunction;
-import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types.FloatJsonSQLFunction;
-import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types.IntJsonSQLFunction;
-import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types.TextJsonSQLFunction;
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types.*;
 import org.hibernate.dialect.PostgreSQL95Dialect;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
@@ -31,6 +28,7 @@ public class PostgreSQLJsonDialect extends PostgreSQL95Dialect {
     registerFunction("hql_json_text", new TextJsonSQLFunction());
     registerFunction("hql_json_int", new IntJsonSQLFunction());
     registerFunction("hql_json_float", new FloatJsonSQLFunction());
+    registerFunction("hql_json_bool", new BoolJsonSQLFunction());
 
     registerJsonFunction("array_length", IntegerType.INSTANCE);
     registerJsonFunction("typeof", StringType.INSTANCE);
