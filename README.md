@@ -22,7 +22,7 @@ Java work with PostgreSQL
 
 ```yaml
 # Use the predefined dialect
-spring.jpa.properties.hibernate.dialect: PostgreSQLJsonDialect
+spring.jpa.properties.hibernate.dialect: com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.PostgreSQLJsonDialect
 ```
 
 Or use your customized dialect
