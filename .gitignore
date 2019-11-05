@@ -3,6 +3,7 @@
 
 # Maven central release
 release.properties
+pom.xml.releaseBackup
 
 ### Eclipse ###
 .metadata
