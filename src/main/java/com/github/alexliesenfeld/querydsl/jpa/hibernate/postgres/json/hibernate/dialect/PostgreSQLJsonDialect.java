@@ -1,4 +1,4 @@
-package com.github.wenerme.postjava.hibernate.dialect;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect;
 
 import java.sql.Types;
 import org.hibernate.dialect.Dialect;
@@ -38,7 +38,7 @@ public class PostgreSQLJsonDialect extends PostgreSQL95Dialect implements Dialec
     registerJsonFunction(accessor, "typeof", StringType.INSTANCE);
 
     // Only support jsonb
-    accessor.registerFunction("hql_jsonb_contain", new JsonContain().setJsonb(true));
+    accessor.registerFunction("hql_jsonb_contain", new JsonContains().setJsonb(true));
   }
 
   static void registerJsonFunction(DialectAccessor dialect, String name, JsonFunction function) {

@@ -1,4 +1,4 @@
-package com.github.wenerme.postjava.hibernate.dialect;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect;
 
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.function.SQLFunction;

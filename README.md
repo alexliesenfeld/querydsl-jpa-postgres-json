@@ -14,7 +14,7 @@ Java work with PostgreSQL
 
 ```xml
 <dependency>
-    <groupId>com.github.wenerme.postjava</groupId>
+    <groupId>com.github.alexliesenfeld.postjava</groupId>
     <artifactId>postjava</artifactId>
     <version>1.0.1</version>
 </dependency>
@@ -22,7 +22,7 @@ Java work with PostgreSQL
 
 ```yaml
 # Use the predefined dialect
-spring.jpa.properties.hibernate.dialect: com.github.wenerme.postjava.hibernate.dialect.PostgreSQLJsonDialect
+spring.jpa.properties.hibernate.dialect: PostgreSQLJsonDialect
 ```
 
 Or use your customized dialect

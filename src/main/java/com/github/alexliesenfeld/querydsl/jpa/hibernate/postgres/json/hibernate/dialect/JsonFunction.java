@@ -1,4 +1,4 @@
-package com.github.wenerme.postjava.hibernate.dialect;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect;
 
 import java.util.List;
 import lombok.Getter;
@@ -15,7 +15,6 @@ import org.hibernate.type.Type;
 @Setter
 @Getter
 class JsonFunction extends JsonSQLFunction implements Cloneable {
-
   protected String functionName;
   protected String jsonbFunctionName;
   protected String jsonFunctionName;
@@ -35,10 +34,7 @@ class JsonFunction extends JsonSQLFunction implements Cloneable {
     return type;
   }
 
-  protected String doRender(
-      Type firstArgumentType, List arguments, SessionFactoryImplementor factory)
-      throws QueryException {
-
+  protected String doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) throws QueryException {
     StringBuilder sb = new StringBuilder();
     sb.append(isJsonb() ? jsonbFunctionName : jsonFunctionName).append('(');
     buildPath(sb, arguments);

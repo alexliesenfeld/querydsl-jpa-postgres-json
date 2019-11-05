@@ -1,4 +1,4 @@
-package com.github.wenerme.postjava.hibernate.dialect;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect;
 
 import java.util.List;
 import org.hibernate.QueryException;
@@ -12,7 +12,6 @@ import org.hibernate.type.Type;
  * @since 2018/6/12
  */
 class JsonText extends JsonSQLFunction {
-
   private String conversion;
   private Type type;
 
@@ -29,18 +28,19 @@ class JsonText extends JsonSQLFunction {
     return type;
   }
 
-  protected CharSequence doRender(
-      Type firstArgumentType, List arguments, SessionFactoryImplementor factory)
-      throws QueryException {
-
+  protected CharSequence doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) throws QueryException {
     StringBuilder sb = new StringBuilder();
+
     if (conversion != null) {
       sb.append('(');
     }
+
     buildPath(sb, arguments, -1).append("->>").append(arguments.get(arguments.size() - 1));
+
     if (conversion != null) {
       sb.append(")::").append(conversion);
     }
+
     return sb;
   }
 }

@@ -1,4 +1,4 @@
-package com.github.wenerme.postjava.hibernate.dialect;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect;
 
 import com.google.common.base.Preconditions;
 import java.util.List;
@@ -54,18 +54,12 @@ abstract class JsonSQLFunction implements SQLFunction {
   }
 
   @Override
-  public final String render(
-      Type firstArgumentType, List arguments, SessionFactoryImplementor factory)
-      throws QueryException {
+  public final String render(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) throws QueryException {
     int argc = arguments.size();
-    Preconditions.checkArgument(
-        argc >= minimalArgumentCount, "At least %s arguments got %s", minimalArgumentCount, argc);
-    Preconditions.checkArgument(
-        argc <= maximalArgumentCount, "At most %s arguments got %s", maximalArgumentCount, argc);
-
+    Preconditions.checkArgument(argc >= minimalArgumentCount, "At least %s arguments got %s", minimalArgumentCount, argc);
+    Preconditions.checkArgument(argc <= maximalArgumentCount, "At most %s arguments got %s", maximalArgumentCount, argc);
     return doRender(firstArgumentType, arguments, factory).toString();
   }
 
-  protected abstract CharSequence doRender(
-      Type firstArgumentType, List arguments, SessionFactoryImplementor factory);
+  protected abstract CharSequence doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory);
 }

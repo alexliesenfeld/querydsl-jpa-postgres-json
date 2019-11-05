@@ -1,4 +1,4 @@
-package com.github.wenerme.postjava.querydsl;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.querydsl;
 
 import com.github.wenerme.wava.util.JSON;
 import com.google.common.base.Preconditions;
