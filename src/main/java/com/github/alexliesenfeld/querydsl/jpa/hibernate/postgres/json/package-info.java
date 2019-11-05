@@ -1,7 +1,6 @@
 /**
- * Java work with PostgreSQL
- *
+ * Querydsl extensions for JPA on Hibernate and PostgreSQL
  * @author <a href=http://github.com/wenerme>wener</a>
- * @since 2018/6/13
+ * @author <a href=http://github.com/alexliesenfeld>Alexander Liesenfeld</a>
  */
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json;

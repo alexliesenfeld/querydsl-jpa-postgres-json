@@ -1,6 +1,7 @@
-package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions;
 
 import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.QueryException;
@@ -10,17 +11,19 @@ import org.hibernate.type.Type;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
- * @since 2018/6/12
+ * @author <a href=http://github.com/alexliesenfeld>Alexander Liesenfeld</a>
+ * @see <a href=https://www.postgresql.org/docs/current/static/functions-json.html>functions-json</a>
  */
 @Setter
 @Getter
-class JsonFunction extends JsonSQLFunction implements Cloneable {
+public class JsonFunction extends AbstractJsonSQLFunction {
   protected String functionName;
   protected String jsonbFunctionName;
   protected String jsonFunctionName;
   protected Type type;
 
   JsonFunction() {
+    super();
     setMinimalArgumentCount(1);
   }
 
@@ -49,12 +52,4 @@ class JsonFunction extends JsonSQLFunction implements Cloneable {
     return this;
   }
 
-  @Override
-  public JsonFunction clone() {
-    try {
-      return (JsonFunction) super.clone();
-    } catch (CloneNotSupportedException e) {
-      throw new RuntimeException(e);
-    }
-  }
 }

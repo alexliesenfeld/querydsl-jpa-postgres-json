@@ -1,4 +1,4 @@
-package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions;
 
 import com.google.common.base.Preconditions;
 import java.util.List;
@@ -13,11 +13,12 @@ import org.hibernate.type.Type;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
- * @since 2018/6/13
+ * @author <a href=http://github.com/alexliesenfeld>Alexander Liesenfeld</a>
+ * @see <a href=https://www.postgresql.org/docs/current/static/functions-json.html>functions-json</a>
  */
 @Setter
 @Getter
-abstract class JsonSQLFunction implements SQLFunction {
+public abstract class AbstractJsonSQLFunction implements SQLFunction {
   protected int minimalArgumentCount = 2;
   protected int maximalArgumentCount = 64;
   protected boolean jsonb;
@@ -37,15 +38,15 @@ abstract class JsonSQLFunction implements SQLFunction {
     return BooleanType.INSTANCE;
   }
 
-  StringBuilder buildPath(StringBuilder sb, List arguments) {
+  public StringBuilder buildPath(StringBuilder sb, List arguments) {
     return buildPath(sb, arguments, 0, arguments.size());
   }
 
-  StringBuilder buildPath(StringBuilder sb, List arguments, int n) {
+  public StringBuilder buildPath(StringBuilder sb, List arguments, int n) {
     return buildPath(sb, arguments, 0, n < 0 ? arguments.size() + n : n);
   }
 
-  StringBuilder buildPath(StringBuilder sb, List arguments, int from, int to) {
+  public StringBuilder buildPath(StringBuilder sb, List arguments, int from, int to) {
     sb.append(arguments.get(from));
     for (int i = from + 1; i < to; i++) {
       sb.append("->").append(arguments.get(i));

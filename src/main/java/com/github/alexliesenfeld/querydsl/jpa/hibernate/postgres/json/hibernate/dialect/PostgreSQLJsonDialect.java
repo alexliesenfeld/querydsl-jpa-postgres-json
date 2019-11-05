@@ -1,62 +1,46 @@
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect;
 
 import java.sql.Types;
-import org.hibernate.dialect.Dialect;
+
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.*;
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types.JsonContainsSQLFunction;
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types.FloatJsonSQLFunction;
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types.IntJsonSQLFunction;
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types.TextJsonSQLFunction;
 import org.hibernate.dialect.PostgreSQL95Dialect;
-import org.hibernate.dialect.function.SQLFunction;
-import org.hibernate.type.FloatType;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
 import org.hibernate.type.Type;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
- * @since 2018/6/12
- * @see <a
- *     href=https://www.postgresql.org/docs/current/static/functions-json.html>functions-json</a>
+ * @author <a href=http://github.com/alexliesenfeld>Alexander Liesenfeld</a>
+ * @see <a href=https://www.postgresql.org/docs/current/static/functions-json.html>functions-json</a>
  */
-public class PostgreSQLJsonDialect extends PostgreSQL95Dialect implements DialectAccessor {
+public class PostgreSQLJsonDialect extends PostgreSQL95Dialect {
 
   public PostgreSQLJsonDialect() {
     super();
-    register(this);
+    register();
   }
 
-  public static void register(Dialect dialect) {
-    DialectAccessor accessor = DialectAccessor.accessor(dialect);
+  public void register() {
+    registerColumnType(Types.JAVA_OBJECT, "jsonb");
+    registerColumnType(Types.JAVA_OBJECT, "json");
 
-    accessor.registerColumnType(Types.JAVA_OBJECT, "jsonb");
-    accessor.registerColumnType(Types.JAVA_OBJECT, "json");
+    registerFunction("hql_json_text", new TextJsonSQLFunction());
+    registerFunction("hql_json_int", new IntJsonSQLFunction());
+    registerFunction("hql_json_float", new FloatJsonSQLFunction());
 
-    // same for json and jsonb
-    accessor.registerFunction("hql_json_text", new JsonText());
-    accessor.registerFunction("hql_json_int", new JsonText(IntegerType.INSTANCE, "int"));
-    accessor.registerFunction("hql_json_float", new JsonText(FloatType.INSTANCE, "float"));
+    registerJsonFunction("array_length", IntegerType.INSTANCE);
+    registerJsonFunction("typeof", StringType.INSTANCE);
 
-    // jsonb & json functions
-    registerJsonFunction(accessor, "array_length", IntegerType.INSTANCE);
-    registerJsonFunction(accessor, "typeof", StringType.INSTANCE);
-
-    // Only support jsonb
-    accessor.registerFunction("hql_jsonb_contain", new JsonContains().setJsonb(true));
+    registerFunction("hql_jsonb_contains", new JsonContainsSQLFunction().setJsonb(true));
   }
 
-  static void registerJsonFunction(DialectAccessor dialect, String name, JsonFunction function) {
-    dialect.registerFunction("hql_json_" + name, function);
-    dialect.registerFunction("hql_jsonb_" + name, function.clone().setJsonb(true));
+  void registerJsonFunction(String name, Type type) {
+    registerFunction("hql_json_" + name, new JsonFunction(type, name));
+    registerFunction("hql_jsonb_" + name, new JsonFunction(type, name).setJsonb(true));
   }
 
-  static void registerJsonFunction(DialectAccessor dialect, String name, Type type) {
-    registerJsonFunction(dialect, name, new JsonFunction(type, name));
-  }
-
-  @Override
-  public void registerColumnType(int code, String name) {
-    super.registerColumnType(code, name);
-  }
-
-  @Override
-  public void registerFunction(String name, SQLFunction function) {
-    super.registerFunction(name, function);
-  }
 }

@@ -84,7 +84,7 @@ public class JsonPath implements Path<Object> {
   @Nullable
   @Override
   public <R, C> R accept(Visitor<R, C> v, @Nullable C context) {
-    // NOTE HQL do not support nexted function, so hql_json_path(hql_json_path(?,?),?) will fail
+    // NOTE HQL does not support nested functions, so hql_json_path(hql_json_path(?,?),?) will fail
     throw new AssertionError("This should not happen");
   }
 
@@ -190,12 +190,12 @@ public class JsonPath implements Path<Object> {
   }
 
   /** JSONB {@code @>} syntax */
-  public BooleanExpression contain(Object value) {
+  public BooleanExpression contains(Object value) {
     checkJsonb();
     List<Object> args = properties();
     args.add(JSON.stringify(value));
     StringBuilder sb = new StringBuilder();
-    functionNameOf(sb, "contain").append('(');
+    functionNameOf(sb, "contains").append('(');
     generateArgs(sb, args.size());
     sb.append(')');
     return Expressions.booleanTemplate(sb.toString(), args);

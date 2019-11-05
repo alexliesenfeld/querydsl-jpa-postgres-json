@@ -1,26 +1,23 @@
-package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions;
 
 import java.util.List;
 import org.hibernate.QueryException;
 import org.hibernate.engine.spi.Mapping;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.type.StringType;
 import org.hibernate.type.Type;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
- * @since 2018/6/12
+ * @author <a href=http://github.com/alexliesenfeld>Alexander Liesenfeld</a>
+ * @see <a href=https://www.postgresql.org/docs/current/static/functions-json.html>functions-json</a>
  */
-class JsonText extends JsonSQLFunction {
-  private String conversion;
-  private Type type;
+public abstract class AbstractTypedJsonFunction extends AbstractJsonSQLFunction {
+  private final String conversion;
+  private final Type type;
 
-  JsonText() {
-    this(StringType.INSTANCE, null);
-  }
-
-  JsonText(Type type, String conversion) {
+  public AbstractTypedJsonFunction(Type type, String conversion) {
     this.conversion = conversion;
+    this.type = type;
   }
 
   @Override
