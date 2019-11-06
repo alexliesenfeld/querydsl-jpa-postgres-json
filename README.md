@@ -16,7 +16,7 @@ Java work with PostgreSQL
 <dependency>
     <groupId>com.github.alexliesenfeld</groupId>
     <artifactId>querydsl-jpa-postgres-json</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
 </dependency>
 ```
 

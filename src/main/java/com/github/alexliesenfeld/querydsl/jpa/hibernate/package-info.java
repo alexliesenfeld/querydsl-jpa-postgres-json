@@ -3,4 +3,4 @@
  * @author <a href=http://github.com/wenerme>wener</a>
  * @author <a href=http://github.com/alexliesenfeld>Alexander Liesenfeld</a>
  */
-package com.github.alexliesenfeld.querydsl.jpa;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate;

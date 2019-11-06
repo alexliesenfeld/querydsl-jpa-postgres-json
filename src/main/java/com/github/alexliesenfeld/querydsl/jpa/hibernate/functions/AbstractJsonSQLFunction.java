@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.QueryException;
 import org.hibernate.dialect.function.SQLFunction;
 import org.hibernate.engine.spi.Mapping;
 import org.hibernate.engine.spi.SessionFactoryImplementor;

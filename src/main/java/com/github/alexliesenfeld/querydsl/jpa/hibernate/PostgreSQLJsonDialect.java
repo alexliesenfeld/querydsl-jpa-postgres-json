@@ -5,8 +5,8 @@ import java.util.function.BiConsumer;
 
 
 import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.JsonFunction;
-import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types.*;
 
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types.*;
 import org.hibernate.dialect.PostgreSQL95Dialect;
 import org.hibernate.dialect.function.SQLFunction;
 import org.hibernate.type.IntegerType;

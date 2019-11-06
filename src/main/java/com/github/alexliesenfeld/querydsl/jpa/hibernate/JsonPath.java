@@ -1,4 +1,4 @@
-package com.github.alexliesenfeld.querydsl.jpa.querydsl;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
