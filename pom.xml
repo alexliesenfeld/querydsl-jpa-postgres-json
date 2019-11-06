@@ -191,7 +191,7 @@
         <developerConnection>scm:git:https://github.com/alexliesenfeld/querydsl-jpa-postgres-json.git
         </developerConnection>
         <url>http://github.com/alexliesenfeld/querydsl-jpa-postgres-json</url>
-        <tag>HEAD</tag>
+        <tag>v0.0.2</tag>
     </scm>
 
 </project>
