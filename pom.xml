@@ -4,7 +4,7 @@
 
     <groupId>com.github.alexliesenfeld</groupId>
     <artifactId>querydsl-jpa-postgres-json</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Querydsl extension for using PostgreSQL JSON types with JPA</description>
@@ -193,7 +193,7 @@
         <developerConnection>scm:git:https://github.com/alexliesenfeld/querydsl-jpa-postgres-json.git
         </developerConnection>
         <url>http://github.com/alexliesenfeld/querydsl-jpa-postgres-json</url>
-        <tag>v0.0.3</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>
