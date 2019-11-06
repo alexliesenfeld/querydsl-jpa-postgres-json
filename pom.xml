@@ -4,7 +4,7 @@
 
     <groupId>com.github.alexliesenfeld</groupId>
     <artifactId>querydsl-jpa-postgres-json</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Querydsl extension for using PostgreSQL JSON types with JPA</description>
@@ -58,6 +58,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
