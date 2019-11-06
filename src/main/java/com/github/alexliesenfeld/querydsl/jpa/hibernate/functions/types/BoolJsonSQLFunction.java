@@ -1,8 +1,7 @@
-package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types;
 
-import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.AbstractTypedJsonFunction;
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.AbstractTypedJsonFunction;
 import org.hibernate.type.BooleanType;
-import org.hibernate.type.FloatType;
 
 /**
  * @author <a href=http://github.com/alexliesenfeld>Alexander Liesenfeld</a>

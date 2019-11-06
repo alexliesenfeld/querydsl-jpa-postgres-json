@@ -1,7 +1,7 @@
-package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions;
 
 import java.util.List;
-import org.hibernate.QueryException;
+
 import org.hibernate.engine.spi.Mapping;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.type.Type;

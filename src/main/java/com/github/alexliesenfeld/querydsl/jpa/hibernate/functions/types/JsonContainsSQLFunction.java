@@ -1,9 +1,8 @@
-package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types;
 
 import java.util.List;
 
-import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.AbstractJsonSQLFunction;
-import org.hibernate.QueryException;
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.AbstractJsonSQLFunction;
 import org.hibernate.dialect.function.SQLFunction;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.type.Type;

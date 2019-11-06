@@ -1,4 +1,4 @@
-package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions;
 
 import com.google.common.base.Preconditions;
 import java.util.List;

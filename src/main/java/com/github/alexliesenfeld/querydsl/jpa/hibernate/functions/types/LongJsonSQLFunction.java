@@ -1,7 +1,6 @@
-package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.types;
+package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types;
 
-import com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.functions.AbstractTypedJsonFunction;
-import org.hibernate.type.IntegerType;
+import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.AbstractTypedJsonFunction;
 import org.hibernate.type.LongType;
 
 /**

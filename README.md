@@ -16,13 +16,13 @@ Java work with PostgreSQL
 <dependency>
     <groupId>com.github.alexliesenfeld</groupId>
     <artifactId>querydsl-jpa-postgres-json</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.5</version>
 </dependency>
 ```
 
 ```yaml
 # Use the predefined dialect
-spring.jpa.properties.hibernate.dialect: com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.hibernate.dialect.PostgreSQLJsonDialect
+spring.jpa.properties.hibernate.dialect: com.github.alexliesenfeld.querydsl.jpa.hibernate.PostgreSQLJsonDialect
 ```
 
 Or use your customized dialect
