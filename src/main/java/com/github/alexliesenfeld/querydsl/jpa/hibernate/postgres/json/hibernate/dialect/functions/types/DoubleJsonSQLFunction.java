@@ -11,6 +11,6 @@ import org.hibernate.type.FloatType;
  */
 public class DoubleJsonSQLFunction extends AbstractTypedJsonFunction {
     public DoubleJsonSQLFunction() {
-        super(DoubleType.INSTANCE, "float");
+        super(DoubleType.INSTANCE, "float8");
     }
 }

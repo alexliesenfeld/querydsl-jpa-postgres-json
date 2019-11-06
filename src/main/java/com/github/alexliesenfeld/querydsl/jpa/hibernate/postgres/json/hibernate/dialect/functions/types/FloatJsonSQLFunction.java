@@ -10,6 +10,6 @@ import org.hibernate.type.FloatType;
  */
 public class FloatJsonSQLFunction extends AbstractTypedJsonFunction {
     public FloatJsonSQLFunction() {
-        super(FloatType.INSTANCE, "float");
+        super(FloatType.INSTANCE, "float4");
     }
 }
