@@ -1,17 +1,16 @@
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.postgres.json.querydsl;
 
-import com.github.wenerme.wava.util.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.querydsl.core.types.Path;
 import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.PathMetadataFactory;
 import com.querydsl.core.types.Visitor;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.NumberTemplate;
-import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.core.types.dsl.*;
+
 import java.lang.reflect.AnnotatedElement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
 import lombok.Getter;
@@ -26,6 +25,7 @@ public class JsonPath implements Path<Object> {
   protected final PathMetadata metadata;
   protected final String property;
   protected final Path<?> parent;
+  protected final ObjectMapper mapper;
   @Getter protected final boolean jsonb;
 
   protected JsonPath(Path<?> parent) {
@@ -37,10 +37,11 @@ public class JsonPath implements Path<Object> {
   }
 
   protected JsonPath(Path<?> parent, String property, boolean jsonb) {
-    metadata = PathMetadataFactory.forProperty(parent, property);
+    this.metadata = PathMetadataFactory.forProperty(parent, property);
     this.property = property;
     this.parent = parent;
     this.jsonb = jsonb;
+    this.mapper = new ObjectMapper();
   }
 
   public static boolean isJsonb(Path<?> path) {
@@ -94,7 +95,7 @@ public class JsonPath implements Path<Object> {
     if (parent instanceof JsonPath) {
       p = ((JsonPath) parent).properties();
     } else {
-      p = Lists.newArrayList();
+      p = new ArrayList<>();
       p.add(parent);
     }
     if (!property.equals(".")) {
@@ -126,6 +127,24 @@ public class JsonPath implements Path<Object> {
     return Expressions.numberTemplate(Integer.class, sb.toString(), args);
   }
 
+  public NumberTemplate<Long> asLong() {
+    List<Object> args = properties();
+    StringBuilder sb = new StringBuilder();
+    sb.append("hql_json_long(");
+    generateArgs(sb, args.size());
+    sb.append(")");
+    return Expressions.numberTemplate(Long.class, sb.toString(), args);
+  }
+
+  public NumberTemplate<Short> asShort() {
+    List<Object> args = properties();
+    StringBuilder sb = new StringBuilder();
+    sb.append("hql_json_short(");
+    generateArgs(sb, args.size());
+    sb.append(")");
+    return Expressions.numberTemplate(Short.class, sb.toString(), args);
+  }
+
   public NumberTemplate<Float> asFloat() {
     List<Object> args = properties();
     StringBuilder sb = new StringBuilder();
@@ -134,15 +153,25 @@ public class JsonPath implements Path<Object> {
     sb.append(")");
     return Expressions.numberTemplate(Float.class, sb.toString(), args);
   }
-  
-  public NumberTemplate<Integer> aBool() {
+
+  public NumberTemplate<Double> asDouble() {
+    List<Object> args = properties();
+    StringBuilder sb = new StringBuilder();
+    sb.append("hql_json_double(");
+    generateArgs(sb, args.size());
+    sb.append(")");
+    return Expressions.numberTemplate(Double.class, sb.toString(), args);
+  }
+
+  public BooleanTemplate asBool() {
     List<Object> args = properties();
     StringBuilder sb = new StringBuilder();
     sb.append("hql_json_bool(");
     generateArgs(sb, args.size());
     sb.append(")");
-    return Expressions.numberTemplate(Integer.class, sb.toString(), args);
+    return Expressions.booleanTemplate(sb.toString(), args);
   }
+
 
   public JsonPath get(String property) {
     return new JsonPath(this, property);
@@ -202,7 +231,7 @@ public class JsonPath implements Path<Object> {
   public BooleanExpression contains(Object value) {
     checkJsonb();
     List<Object> args = properties();
-    args.add(JSON.stringify(value));
+    args.add(toJsonString(value));
     StringBuilder sb = new StringBuilder();
     functionNameOf(sb, "contains").append('(');
     generateArgs(sb, args.size());
@@ -210,6 +239,13 @@ public class JsonPath implements Path<Object> {
     return Expressions.booleanTemplate(sb.toString(), args);
   }
 
+  private String toJsonString(Object value){
+    try {
+      return this.mapper.writeValueAsString(value);
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
+  }
   protected void checkJsonb() {
     Preconditions.checkArgument(isJsonb(), "This function required jsonb type");
   }

@@ -28,6 +28,9 @@ public class PostgreSQLJsonDialect extends PostgreSQL95Dialect {
     registerFunction("hql_json_text", new TextJsonSQLFunction());
     registerFunction("hql_json_int", new IntJsonSQLFunction());
     registerFunction("hql_json_float", new FloatJsonSQLFunction());
+    registerFunction("hql_json_double", new DoubleJsonSQLFunction());
+    registerFunction("hql_json_long", new  LongJsonSQLFunction());
+    registerFunction("hql_json_short", new  ShortJsonSQLFunction());
     registerFunction("hql_json_bool", new BoolJsonSQLFunction());
 
     registerJsonFunction("array_length", IntegerType.INSTANCE);

@@ -34,7 +34,7 @@ public abstract class AbstractJsonSQLFunction implements SQLFunction {
   }
 
   @Override
-  public Type getReturnType(Type firstArgumentType, Mapping mapping) throws QueryException {
+  public Type getReturnType(Type firstArgumentType, Mapping mapping) {
     return BooleanType.INSTANCE;
   }
 
@@ -55,7 +55,7 @@ public abstract class AbstractJsonSQLFunction implements SQLFunction {
   }
 
   @Override
-  public final String render(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) throws QueryException {
+  public final String render(Type firstArgumentType, List arguments, SessionFactoryImplementor factory){
     int argc = arguments.size();
     Preconditions.checkArgument(argc >= minimalArgumentCount, "At least %s arguments got %s", minimalArgumentCount, argc);
     Preconditions.checkArgument(argc <= maximalArgumentCount, "At most %s arguments got %s", maximalArgumentCount, argc);

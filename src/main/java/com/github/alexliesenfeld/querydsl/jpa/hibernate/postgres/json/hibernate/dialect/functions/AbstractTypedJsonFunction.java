@@ -21,11 +21,11 @@ public abstract class AbstractTypedJsonFunction extends AbstractJsonSQLFunction 
   }
 
   @Override
-  public Type getReturnType(Type firstArgumentType, Mapping mapping) throws QueryException {
+  public Type getReturnType(Type firstArgumentType, Mapping mapping) {
     return type;
   }
 
-  protected CharSequence doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) throws QueryException {
+  protected CharSequence doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) {
     StringBuilder sb = new StringBuilder();
 
     if (conversion != null) {

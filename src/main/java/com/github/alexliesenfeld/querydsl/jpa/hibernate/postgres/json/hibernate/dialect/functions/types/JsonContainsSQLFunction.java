@@ -16,7 +16,7 @@ import org.hibernate.type.Type;
 public class JsonContainsSQLFunction extends AbstractJsonSQLFunction implements SQLFunction {
 
   @Override
-  protected String doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) throws QueryException {
+  protected String doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) {
     StringBuilder sb = new StringBuilder();
     super.buildPath(sb, arguments, -1)
         .append("@>")

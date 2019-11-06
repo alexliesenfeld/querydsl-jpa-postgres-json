@@ -33,11 +33,11 @@ public class JsonFunction extends AbstractJsonSQLFunction {
   }
 
   @Override
-  public Type getReturnType(Type firstArgumentType, Mapping mapping) throws QueryException {
+  public Type getReturnType(Type firstArgumentType, Mapping mapping) {
     return type;
   }
 
-  protected String doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) throws QueryException {
+  protected String doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) {
     StringBuilder sb = new StringBuilder();
     sb.append(isJsonb() ? jsonbFunctionName : jsonFunctionName).append('(');
     buildPath(sb, arguments);
