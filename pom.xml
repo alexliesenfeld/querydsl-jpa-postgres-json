@@ -88,6 +88,7 @@
                     <pushChanges>false</pushChanges>
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -190,8 +191,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/alexliesenfeld/querydsl-jpa-postgres-json.git</connection>
-        <developerConnection>scm:git:https://github.com/alexliesenfeld/querydsl-jpa-postgres-json.git
-        </developerConnection>
+        <developerConnection>scm:git:https://github.com/alexliesenfeld/querydsl-jpa-postgres-json.git</developerConnection>
         <url>http://github.com/alexliesenfeld/querydsl-jpa-postgres-json</url>
         <tag>HEAD</tag>
     </scm>
