@@ -235,7 +235,7 @@ public class JsonPath implements Path<Object> {
     StringBuilder sb = new StringBuilder();
     functionNameOf(sb, "contains").append('(');
     generateArgs(sb, args.size());
-    sb.append(') = true');
+    sb.append(") = true");
     return Expressions.booleanTemplate(sb.toString(), args);
   }
 
