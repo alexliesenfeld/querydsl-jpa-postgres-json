@@ -28,6 +28,7 @@ public class JsonFunction extends AbstractJsonSQLFunction {
 
   public JsonFunction(Type type, String functionName) {
     this();
+    this.type = type;
     setFunctionName(functionName);
   }
 
