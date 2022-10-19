@@ -18,7 +18,7 @@
         <querydsl.version>4.2.1</querydsl.version>
         <hibernate.version>5.2.10.Final</hibernate.version>
         <lombok.version>1.18.8</lombok.version>
-        <jackson.version>2.10.0</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
     </properties>
 
     <dependencies>
