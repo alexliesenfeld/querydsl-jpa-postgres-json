@@ -1,7 +1,6 @@
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types;
 
 import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.AbstractTypedJsonFunction;
-import org.hibernate.type.LongType;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
@@ -10,6 +9,6 @@ import org.hibernate.type.LongType;
  */
 public class LongJsonSQLFunction extends AbstractTypedJsonFunction {
     public LongJsonSQLFunction() {
-        super(LongType.INSTANCE, "bigint");
+        super("bigint");
     }
 }

@@ -1,12 +1,11 @@
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.engine.spi.Mapping;
-import org.hibernate.engine.spi.SessionFactoryImplementor;
+import org.hibernate.sql.ast.spi.SqlAppender;
 import org.hibernate.type.Type;
+
+import java.util.List;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
@@ -23,32 +22,13 @@ public class JsonFunction extends AbstractJsonSQLFunction {
 
   JsonFunction() {
     super();
-    setMinimalArgumentCount(1);
   }
 
-  public JsonFunction(Type type, String functionName) {
-    this();
-    setFunctionName(functionName);
-  }
-
-  @Override
-  public Type getReturnType(Type firstArgumentType, Mapping mapping) {
-    return type;
-  }
-
-  protected String doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory) {
-    StringBuilder sb = new StringBuilder();
-    sb.append(isJsonb() ? jsonbFunctionName : jsonFunctionName).append('(');
+  protected void doRender(SqlAppender sb, List arguments) {
+    sb.append(isJsonb() ? jsonbFunctionName : jsonFunctionName);
+    sb.append('(');
     buildPath(sb, arguments);
     sb.append(')');
-    return sb.toString();
-  }
-
-  public JsonFunction setFunctionName(String functionName) {
-    this.functionName = functionName;
-    jsonFunctionName = "json_" + functionName;
-    jsonbFunctionName = "jsonb_" + functionName;
-    return this;
   }
 
 }

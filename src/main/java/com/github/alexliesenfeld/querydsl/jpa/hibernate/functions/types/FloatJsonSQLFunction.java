@@ -1,7 +1,6 @@
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types;
 
 import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.AbstractTypedJsonFunction;
-import org.hibernate.type.FloatType;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
@@ -10,6 +9,6 @@ import org.hibernate.type.FloatType;
  */
 public class FloatJsonSQLFunction extends AbstractTypedJsonFunction {
     public FloatJsonSQLFunction() {
-        super(FloatType.INSTANCE, "float4");
+        super("float4");
     }
 }

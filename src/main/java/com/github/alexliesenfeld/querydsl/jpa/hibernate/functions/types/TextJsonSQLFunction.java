@@ -1,7 +1,6 @@
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types;
 
 import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.AbstractTypedJsonFunction;
-import org.hibernate.type.StringType;
 
 /**
  * @author <a href=http://github.com/alexliesenfeld>Alexander Liesenfeld</a>
@@ -9,6 +8,6 @@ import org.hibernate.type.StringType;
  */
 public class TextJsonSQLFunction extends AbstractTypedJsonFunction {
     public TextJsonSQLFunction() {
-        super(StringType.INSTANCE, null);
+        super("text");
     }
 }

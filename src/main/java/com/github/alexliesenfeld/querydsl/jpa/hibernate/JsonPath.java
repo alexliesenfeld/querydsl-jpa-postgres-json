@@ -2,19 +2,18 @@ package com.github.alexliesenfeld.querydsl.jpa.hibernate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Preconditions;
 import com.querydsl.core.types.Path;
 import com.querydsl.core.types.PathMetadata;
 import com.querydsl.core.types.PathMetadataFactory;
 import com.querydsl.core.types.Visitor;
 import com.querydsl.core.types.dsl.*;
+import lombok.Getter;
+import org.hibernate.AssertionFailure;
+import org.hibernate.annotations.Type;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
-import lombok.Getter;
-import org.hibernate.annotations.Type;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
@@ -50,7 +49,7 @@ public class JsonPath implements Path<Object> {
     }
     Type type = path.getAnnotatedElement().getAnnotation(Type.class);
     if (type != null) {
-      return type.type().contains("jsonb");
+      return type.value().getName().contains("JsonBinaryType");
     }
     return false;
   }
@@ -82,9 +81,8 @@ public class JsonPath implements Path<Object> {
     return parent.getAnnotatedElement();
   }
 
-  @Nullable
   @Override
-  public <R, C> R accept(Visitor<R, C> v, @Nullable C context) {
+  public <R, C> R accept(Visitor<R, C> v, C context) {
     // NOTE HQL does not support nested functions, so hql_json_path(hql_json_path(?,?),?) will fail
     throw new AssertionError("This should not happen");
   }
@@ -247,6 +245,7 @@ public class JsonPath implements Path<Object> {
     }
   }
   protected void checkJsonb() {
-    Preconditions.checkArgument(isJsonb(), "This function required jsonb type");
+    if(!isJsonb())
+      throw new AssertionFailure("This function required jsonb type");
   }
 }
