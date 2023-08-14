@@ -1,0 +1,4 @@
+0.0.9-SNAPSHOT:
+- updated to spring-boot 3.1 and hibernate 6.2
+- generation of full-parametric SQL queries (previous version generated mixed parametric / static queries, which required messing with Hibernate internals and moreover could lead to SQL injections)
+- updated postgresql testcontainer to version 15

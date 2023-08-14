@@ -8,7 +8,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 public class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     @Override
     public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
-        PostgreSQLContainer<?> dbContainer = new PostgreSQLContainer<>("postgres:10.6-alpine");
+        PostgreSQLContainer<?> dbContainer = new PostgreSQLContainer<>("postgres:15.3-alpine");
         dbContainer.start();
 
         TestPropertyValues.of(
