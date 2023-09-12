@@ -2,7 +2,10 @@ package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import org.hibernate.sql.ast.SqlAstTranslator;
 import org.hibernate.sql.ast.spi.SqlAppender;
+import org.hibernate.sql.ast.tree.SqlAstNode;
 import org.hibernate.type.Type;
 
 import java.util.List;
@@ -24,10 +27,10 @@ public class JsonFunction extends AbstractJsonSQLFunction {
     super();
   }
 
-  protected void doRender(SqlAppender sb, List arguments) {
+  protected void doRender(SqlAppender sb, List<? extends SqlAstNode> arguments, SqlAstTranslator<?> walker) {
     sb.append(isJsonb() ? jsonbFunctionName : jsonFunctionName);
     sb.append('(');
-    buildPath(sb, arguments);
+    buildPath(sb, arguments, walker);
     sb.append(')');
   }
 

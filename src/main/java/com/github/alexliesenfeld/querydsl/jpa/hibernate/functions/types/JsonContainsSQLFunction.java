@@ -1,7 +1,10 @@
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types;
 
 import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.AbstractJsonSQLFunction;
+
+import org.hibernate.sql.ast.SqlAstTranslator;
 import org.hibernate.sql.ast.spi.SqlAppender;
+import org.hibernate.sql.ast.tree.SqlAstNode;
 
 import java.util.List;
 
@@ -13,14 +16,11 @@ import java.util.List;
 public class JsonContainsSQLFunction extends AbstractJsonSQLFunction {
 
   @Override
-  protected void doRender(SqlAppender sb, List arguments) {
+  protected void doRender(SqlAppender sb, List<? extends SqlAstNode> arguments, SqlAstTranslator<?> walker) {
 
-    super.buildPath(sb, arguments, -1);
-    Object arg = arguments.get(arguments.size() - 1);
+    super.buildPath(sb, arguments, -1, walker);
     sb.append("@>");
-    sb.append("'");
-    sb.append(arg == null ? "null" : getSqmParameterInterpretation(arg).toString());
-    sb.append("'");
+    arguments.get(arguments.size() - 1).accept(walker);
     sb.append("::");
     sb.append(isJsonb() ? "jsonb" : "json");
   }
