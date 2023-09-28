@@ -1,14 +1,20 @@
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions;
 
-import com.google.common.base.Preconditions;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.dialect.function.SQLFunction;
-import org.hibernate.engine.spi.Mapping;
-import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.type.BooleanType;
-import org.hibernate.type.Type;
+import org.hibernate.AssertionFailure;
+import org.hibernate.query.sqm.function.AbstractSqmSelfRenderingFunctionDescriptor;
+import org.hibernate.query.sqm.produce.function.StandardArgumentsValidators;
+import org.hibernate.query.sqm.produce.function.StandardFunctionReturnTypeResolvers;
+import org.hibernate.sql.ast.SqlAstTranslator;
+import org.hibernate.sql.ast.spi.SqlAppender;
+import org.hibernate.sql.ast.tree.SqlAstNode;
+import org.hibernate.sql.ast.tree.expression.ColumnReference;
+import org.hibernate.sql.ast.tree.predicate.Predicate;
+import org.hibernate.sql.ast.tree.update.Assignable;
+import org.hibernate.type.JavaObjectType;
+
+import java.util.List;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
@@ -17,49 +23,69 @@ import org.hibernate.type.Type;
  */
 @Setter
 @Getter
-public abstract class AbstractJsonSQLFunction implements SQLFunction {
-  protected int minimalArgumentCount = 2;
-  protected int maximalArgumentCount = 64;
-  protected boolean jsonb;
+public abstract class AbstractJsonSQLFunction
+        extends AbstractSqmSelfRenderingFunctionDescriptor {
 
-  @Override
-  public boolean hasArguments() {
-    return true;
+  static int minimalArgumentCount = 2;
+  static int maximalArgumentCount = 64;
+  protected boolean jsonb = true;
+
+
+  public void buildPath(SqlAppender sb,  List<? extends SqlAstNode>  arguments, SqlAstTranslator<?> walker) {
+    buildPath(sb, arguments, 0, arguments.size(), walker);
   }
 
-  @Override
-  public boolean hasParenthesesIfNoArguments() {
-    return false;
+  public void buildPath(SqlAppender sb, List<? extends SqlAstNode>  arguments, int n, SqlAstTranslator<?> walker) {
+    buildPath(sb, arguments, 0, n < 0 ? arguments.size() + n : n, walker);
   }
 
-  @Override
-  public Type getReturnType(Type firstArgumentType, Mapping mapping) {
-    return BooleanType.INSTANCE;
-  }
+  public void buildPath(SqlAppender sb, List<? extends SqlAstNode>  arguments, int from, int to, SqlAstTranslator<?> walker) {
+    Object arg = arguments.get(from);
 
-  public StringBuilder buildPath(StringBuilder sb, List arguments) {
-    return buildPath(sb, arguments, 0, arguments.size());
-  }
+    if (!(arg instanceof Assignable))
+      throw new AssertionFailure("Not assignable");
 
-  public StringBuilder buildPath(StringBuilder sb, List arguments, int n) {
-    return buildPath(sb, arguments, 0, n < 0 ? arguments.size() + n : n);
-  }
+    ColumnReference columnReference = ((Assignable) arg).getColumnReferences().get(0);
+    sb.append(columnReference.getExpressionText());
 
-  public StringBuilder buildPath(StringBuilder sb, List arguments, int from, int to) {
-    sb.append(arguments.get(from));
-    for (int i = from + 1; i < to; i++) {
-      sb.append("->").append(arguments.get(i));
+    for (int i = to - 1; i >= from + 1; i--) {
+      sb.append("->");
+      arguments.get(i).accept(walker);
     }
-    return sb;
+  }
+
+  protected AbstractJsonSQLFunction() {
+    super(
+            "sql",
+            StandardArgumentsValidators.between(minimalArgumentCount, maximalArgumentCount),
+            StandardFunctionReturnTypeResolvers.invariant(JavaObjectType.INSTANCE),
+            null
+    );
   }
 
   @Override
-  public final String render(Type firstArgumentType, List arguments, SessionFactoryImplementor factory){
-    int argc = arguments.size();
-    Preconditions.checkArgument(argc >= minimalArgumentCount, "At least %s arguments got %s", minimalArgumentCount, argc);
-    Preconditions.checkArgument(argc <= maximalArgumentCount, "At most %s arguments got %s", maximalArgumentCount, argc);
-    return doRender(firstArgumentType, arguments, factory).toString();
+
+  public void render(
+          SqlAppender sqlAppender,
+          List<? extends SqlAstNode> sqlAstArguments,
+          Predicate filter,
+          Boolean respectNulls,
+          Boolean fromFirst,
+          SqlAstTranslator<?> walker) {
+    doRender(sqlAppender, sqlAstArguments, walker);
   }
 
-  protected abstract CharSequence doRender(Type firstArgumentType, List arguments, SessionFactoryImplementor factory);
+  public void render(
+          SqlAppender sqlAppender,
+          List<? extends SqlAstNode> arguments,
+          SqlAstTranslator<?> walker) {
+    doRender(sqlAppender, arguments, walker);
+  }
+
+  protected abstract void doRender(SqlAppender sb, List<? extends SqlAstNode> arguments, SqlAstTranslator<?> walker);
+
+  @Override
+  public String getArgumentListSignature() {
+    return "";
+  }
 }

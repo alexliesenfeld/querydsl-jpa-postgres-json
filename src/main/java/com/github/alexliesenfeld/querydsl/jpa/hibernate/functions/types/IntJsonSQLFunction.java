@@ -1,7 +1,6 @@
 package com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.types;
 
 import com.github.alexliesenfeld.querydsl.jpa.hibernate.functions.AbstractTypedJsonFunction;
-import org.hibernate.type.IntegerType;
 
 /**
  * @author <a href=http://github.com/wenerme>wener</a>
@@ -10,6 +9,6 @@ import org.hibernate.type.IntegerType;
  */
 public class IntJsonSQLFunction extends AbstractTypedJsonFunction {
     public IntJsonSQLFunction() {
-        super(IntegerType.INSTANCE, "int");
+        super("int");
     }
 }
